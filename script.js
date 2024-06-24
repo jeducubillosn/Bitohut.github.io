@@ -107,29 +107,35 @@ let currentQuestion = 0;
 function loadQuestion(level, questionIndex) {
     const container = document.getElementById('question-container');
     container.innerHTML = '';
-
-    if (questionIndex >= questions.length) {
-        container.innerHTML = '<h2>No hay más preguntas.</h2>';
-        return;
-    }
-
+    
     const question = questions[questionIndex];
     const questionElement = document.createElement('div');
     questionElement.innerHTML = `<h2>${question.question}</h2>`;
-
+    
     question.options.forEach((option, index) => {
         const optionElement = document.createElement('button');
         optionElement.innerText = option;
         optionElement.className = 'option-button';
-        optionElement.addEventListener('click', () => selectOption(level, questionIndex, index));
+        optionElement.onclick = () => selectOption(optionElement, level, questionIndex, index);
         container.appendChild(optionElement);
     });
 }
 
-function selectOption(level, questionIndex, optionIndex) {
+function selectOption(optionElement, level, questionIndex, optionIndex) {
+    // Deselecciona otras opciones
+    document.querySelectorAll('.option-button').forEach(button => {
+        button.classList.remove('selected');
+    });
+    
+    // Selecciona la opción actual
+    optionElement.classList.add('selected');
+    
+    // Habilita el botón "Siguiente"
+    document.getElementById('next-button').disabled = false;
+    
+    // Actualiza el nivel y la pregunta actual
     currentLevel = level + 1;
     currentQuestion = questions[questionIndex].next[optionIndex];
-    document.getElementById('next-button').disabled = false;
 }
 
 function nextQuestion() {
@@ -144,5 +150,4 @@ function nextQuestion() {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadQuestion(currentLevel, currentQuestion);
-    document.getElementById('next-button').addEventListener('click', nextQuestion);
 });
