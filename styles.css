@@ -52,3 +52,7 @@ button.option-button {
 button.option-button:hover {
     background-color: #0056b3;
 }
+
+button.option-button.selected {
+    background-color: #0056b3;
+}
