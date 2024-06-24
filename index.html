@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test de Segmentación de Usuarios</title>
+  <title>Página de Test</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="pregunta"></div>
-  <div id="diagnostico"></div>
+  <div class="container">
+    <h1>Bienvenido al Test de Segmentación</h1>
+    <div class="question">
+      <div class="question-text">¿Pregunta 1?</div>
+      <div class="answers">
+        <button class="answer-button">Respuesta 1</button>
+        <button class="answer-button">Respuesta 2</button>
+        <button class="answer-button">Respuesta 3</button>
+      </div>
+    </div>
+    <button class="confirm-button">Confirmar Respuesta</button>
+    <div class="diagnosis">
+      <div class="diagnosis-text">Diagnóstico Final</div>
+      <div class="diagnosis-description">Texto de diagnóstico aquí...</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
