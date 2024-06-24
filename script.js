@@ -75,6 +75,17 @@ function mostrarDiagnostico() {
   const diagnostico = diagnosticos.find(d => d.respuestas.includes(respuestaFinal));
   
   const diagnosticoDiv = document.getElementById('diagnostico');
+  
+  // Verificar si se encontró un diagnóstico
+  if (!diagnostico) {
+    diagnosticoDiv.innerHTML = `
+      <h2>Diagnóstico</h2>
+      <p>No se encontró un diagnóstico para las respuestas proporcionadas.</p>
+    `;
+    console.error('No se encontró un diagnóstico para las respuestas:', respuestaFinal);
+    return;
+  }
+
   diagnosticoDiv.innerHTML = `
     <h2>Diagnóstico</h2>
     <p>Hongo recomendado: ${diagnostico.hongo}</p>
