@@ -1,6 +1,6 @@
 // Variables para almacenar las preguntas y diagnósticos
 let preguntas = {};
-let diagnosticos = [];
+let diagnosticos = {};
 let respuestasUsuario = [];
 
 // Función para cargar las preguntas desde el archivo JSON
