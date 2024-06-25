@@ -1,6 +1,6 @@
 // Variables para almacenar las preguntas y diagnósticos
 let preguntas = {};
-let diagnosticos = {};
+let diagnosticos = [];
 let respuestasUsuario = [];
 
 // Función para cargar las preguntas desde el archivo JSON
@@ -42,7 +42,7 @@ function guardarRespuesta(nivel, index, respuesta) {
   const siguienteNivel = obtenerSiguienteNivel(nivel, respuesta);
   const siguienteIndex = obtenerSiguienteIndex(nivel, index, respuesta);
 
-  if (siguienteNivel && siguienteIndex !== null) {
+  if (siguienteNivel) {
     mostrarPregunta(siguienteNivel, siguienteIndex);
   } else {
     mostrarDiagnostico();
@@ -54,8 +54,7 @@ function obtenerSiguienteNivel(nivel, respuesta) {
   const niveles = {
     'nivel1': 'nivel2',
     'nivel2': 'nivel3',
-    'nivel3': 'nivel4',
-    'nivel4': null  // Nivel final
+    'nivel3': 'nivel4'
   };
   return niveles[nivel];
 }
@@ -67,28 +66,15 @@ function obtenerSiguienteIndex(nivel, index, respuesta) {
     'B': 1,
     'C': 2
   };
-  return indices[respuesta] !== undefined ? indices[respuesta] : null;
+  return index * 3 + indices[respuesta];
 }
 
 // Función para mostrar el diagnóstico final basado en las respuestas del usuario
 function mostrarDiagnostico() {
-  // Formar respuesta final en el formato adecuado
   const respuestaFinal = respuestasUsuario.map(r => `4${r.index}-${r.respuesta}`).join(',');
-
-  // Buscar el diagnóstico correspondiente
-  const diagnostico = diagnosticos.find(d => d.respuestas.some(res => respuestaFinal.includes(res)));
-
+  const diagnostico = diagnosticos.find(d => d.respuestas.includes(respuestaFinal));
+  
   const diagnosticoDiv = document.getElementById('diagnostico');
-
-  if (!diagnostico) {
-    diagnosticoDiv.innerHTML = `
-      <h2>Diagnóstico</h2>
-      <p>No se encontró un diagnóstico para las respuestas proporcionadas.</p>
-    `;
-    console.error('No se encontró un diagnóstico para las respuestas:', respuestaFinal);
-    return;
-  }
-
   diagnosticoDiv.innerHTML = `
     <h2>Diagnóstico</h2>
     <p>Hongo recomendado: ${diagnostico.hongo}</p>
