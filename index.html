@@ -19,8 +19,12 @@
             fetch('preguntas.json')
                 .then(response => response.json())
                 .then(data => {
-                    preguntas = data;
-                    mostrarPregunta(1, 1);
+                    if (Array.isArray(data)) {
+                        preguntas = data;
+                        mostrarPregunta(1, 1);
+                    } else {
+                        console.error('El formato de preguntas.json no es correcto:', data);
+                    }
                 })
                 .catch(error => console.error('Error al cargar preguntas:', error));
         }
@@ -30,7 +34,11 @@
             fetch('diagnosticos.json')
                 .then(response => response.json())
                 .then(data => {
-                    diagnosticos = data;
+                    if (Array.isArray(data)) {
+                        diagnosticos = data;
+                    } else {
+                        console.error('El formato de diagnosticos.json no es correcto:', data);
+                    }
                 })
                 .catch(error => console.error('Error al cargar diagnósticos:', error));
         }
