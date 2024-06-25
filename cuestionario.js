@@ -5,40 +5,46 @@ let diagnosticos = [];
 fetch('preguntas.json')
     .then(response => response.json())
     .then(data => {
-        preguntas = data.preguntas;
+        preguntas = data;
         mostrarPreguntaActual();
-    });
+    })
+    .catch(error => console.error('Error al cargar preguntas:', error));
 
 fetch('diagnosticos.json')
     .then(response => response.json())
     .then(data => {
-        diagnosticos = data.diagnosticos;
-    });
+        diagnosticos = data;
+    })
+    .catch(error => console.error('Error al cargar diagnósticos:', error));
 
 let respuestasUsuario = [];
 let preguntaActual = 0;
 
 // Mostrar la pregunta actual al usuario
 function mostrarPreguntaActual() {
-    const pregunta = preguntas[preguntaActual];
-    const preguntaTexto = document.getElementById('pregunta-texto');
-    const opciones = document.getElementById('opciones');
+    if (preguntaActual < preguntas.length) {
+        const pregunta = preguntas[preguntaActual];
+        const preguntaTexto = document.getElementById('pregunta-texto');
+        const opciones = document.getElementById('opciones');
 
-    preguntaTexto.textContent = pregunta.pregunta;
-    opciones.innerHTML = '';
+        preguntaTexto.textContent = pregunta.pregunta;
+        opciones.innerHTML = '';
 
-    pregunta.opciones.forEach((opcion, index) => {
-        const button = document.createElement('button');
-        button.textContent = opcion;
-        button.onclick = () => guardarRespuesta(preguntaActual, index);
-        opciones.appendChild(button);
-    });
+        pregunta.opciones.forEach((opcion, index) => {
+            const button = document.createElement('button');
+            button.textContent = opcion;
+            button.onclick = () => guardarRespuesta(preguntaActual, index);
+            opciones.appendChild(button);
+        });
+    } else {
+        mostrarDiagnostico();
+    }
 }
 
 // Guardar la respuesta del usuario y avanzar a la siguiente pregunta o mostrar el diagnóstico
 function guardarRespuesta(preguntaIndex, opcionIndex) {
     respuestasUsuario[preguntaIndex] = preguntas[preguntaIndex].id + "-" + String.fromCharCode(65 + opcionIndex);
-    
+
     if (preguntaIndex + 1 < preguntas.length) {
         preguntaActual++;
         mostrarPreguntaActual();
