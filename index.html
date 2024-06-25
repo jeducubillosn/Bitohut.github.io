@@ -1,31 +1,21 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repositorio de Preguntas y Diagnósticos</title>
-    <script src="script.js" defer></script>
+    <title>Preguntas Interactivas</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Si tienes un archivo CSS -->
 </head>
 <body>
-    <header>
-        <h1>Repositorio de Preguntas y Diagnósticos</h1>
-    </header>
-    <main>
-        <section id="preguntas">
-            <h2>Preguntas</h2>
-            <ul id="lista-preguntas">
-                <!-- Aquí se generará dinámicamente la lista de preguntas -->
-            </ul>
-        </section>
-        <section id="diagnosticos">
-            <h2>Diagnosticos</h2>
-            <ul id="lista-diagnosticos">
-                <!-- Aquí se generará dinámicamente la lista de diagnósticos -->
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
-    </footer>
+    <div class="container">
+        <h1 id="titulo-pregunta">Título de la Pregunta</h1>
+        <div id="contenedor-opciones" class="opciones">
+            <!-- Aquí se generan dinámicamente las opciones -->
+        </div>
+    </div>
+    <script src="script.js"></script> <!-- Asegúrate de que el nombre del archivo JS sea correcto -->
 </body>
 </html>
+
