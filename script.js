@@ -69,14 +69,15 @@ function obtenerSiguienteIndex(nivel, index, respuesta) {
   return index * 3 + indices[respuesta];
 }
 
-// Función para mostrar el diagnóstico final basado en las respuestas del usuario
 function mostrarDiagnostico() {
   const respuestaFinal = respuestasUsuario.map(r => `4${r.index}-${r.respuesta}`).join(',');
+  console.log('Respuesta Final:', respuestaFinal);
+  console.log('Diagnósticos:', diagnosticos);
+
   const diagnostico = diagnosticos.find(d => d.respuestas.includes(respuestaFinal));
   
   const diagnosticoDiv = document.getElementById('diagnostico');
   
-  // Verificar si se encontró un diagnóstico
   if (!diagnostico) {
     diagnosticoDiv.innerHTML = `
       <h2>Diagnóstico</h2>
@@ -99,4 +100,3 @@ window.onload = function() {
   cargarPreguntas();
   cargarDiagnosticos();
 };
-
