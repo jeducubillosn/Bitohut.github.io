@@ -49,6 +49,7 @@ function guardarRespuesta(nivel, index, respuesta) {
   }
 }
 
+// Función para obtener el siguiente nivel de preguntas
 function obtenerSiguienteNivel(nivel, respuesta) {
   const niveles = {
     'nivel1': 'nivel2',
@@ -59,6 +60,7 @@ function obtenerSiguienteNivel(nivel, respuesta) {
   return niveles[nivel];
 }
 
+// Función para obtener el índice de la siguiente pregunta
 function obtenerSiguienteIndex(nivel, index, respuesta) {
   const indices = {
     'A': 0,
@@ -68,11 +70,12 @@ function obtenerSiguienteIndex(nivel, index, respuesta) {
   return indices[respuesta] !== undefined ? indices[respuesta] : null;
 }
 
+// Función para mostrar el diagnóstico final basado en las respuestas del usuario
 function mostrarDiagnostico() {
-  const respuestaFinal = respuestasUsuario.map(r => `4${r.index}-${r.respuesta}`).join(',');
+  const respuestaFinal = respuestasUsuario.map(r => `${r.nivel.slice(-1)}${r.index}-${r.respuesta}`).join(',');
   console.log('Respuesta Final:', respuestaFinal);
+  console.log('Diagnósticos:', diagnosticos);
 
-  // Encuentra el diagnóstico que contiene la respuesta final
   const diagnostico = diagnosticos.find(d => d.respuestas.includes(respuestaFinal));
   
   const diagnosticoDiv = document.getElementById('diagnostico');
