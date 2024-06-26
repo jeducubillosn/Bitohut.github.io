@@ -16,6 +16,14 @@ function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
 
+    // Determinar el nivel de la pregunta
+    const niveles = pregunta.id.split('-').filter(n => n !== '0').length;
+    const nivelClase = `nivel-${niveles}`;
+
+    // Eliminar clases previas y agregar la clase del nivel actual al body
+    document.body.className = '';
+    document.body.classList.add(nivelClase);
+
     tituloPregunta.textContent = pregunta.pregunta;
 
     // Limpiar opciones anteriores si las hubiera
@@ -36,16 +44,7 @@ function mostrarPregunta(pregunta) {
         botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, 1));
         contenedorOpciones.appendChild(botonOpcion);
     }
-
-    // Añadir clases específicas según el nivel de la pregunta
-    const niveles = pregunta.id.split('-').filter(n => n !== '0').length;
-    const nivelClase = `level-${niveles}`;
-
-    // Elimina clases previas y agrega la clase del nivel actual
-    tituloPregunta.className = '';
-    tituloPregunta.classList.add("question", nivelClase);
 }
-
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
