@@ -51,6 +51,7 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 
 function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
     const niveles = idActual.split('-').map(Number);
+    
     if (niveles[0] === 0) {
         niveles[0] = opcionSeleccionada;
     } else if (niveles[1] === 0) {
