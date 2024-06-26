@@ -1,6 +1,3 @@
-// js/main.js
-
-
 const urlPreguntas = 'preguntas.json';
 
 async function cargarPreguntas() {
