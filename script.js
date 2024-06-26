@@ -1,4 +1,4 @@
-const urlPreguntas = 'preguntas.json'; // Asegúrate de tener el nombre correcto y la ruta adecuada aquí
+const urlPreguntas = 'preguntas.json';
 
 async function cargarPreguntas() {
     try {
@@ -21,13 +21,23 @@ function mostrarPregunta(pregunta) {
     // Limpiar opciones anteriores si las hubiera
     contenedorOpciones.innerHTML = '';
 
-    pregunta.opciones.forEach((opcion, index) => {
+    // Verificar si opciones es un arreglo
+    if (Array.isArray(pregunta.opciones)) {
+        pregunta.opciones.forEach((opcion, index) => {
+            const botonOpcion = document.createElement('button');
+            botonOpcion.textContent = opcion;
+            botonOpcion.classList.add('opcion');
+            botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, index + 1));
+            contenedorOpciones.appendChild(botonOpcion);
+        });
+    } else {
+        // Si opciones no es un arreglo (puede ser un string en el nivel 5)
         const botonOpcion = document.createElement('button');
-        botonOpcion.textContent = opcion;
+        botonOpcion.textContent = pregunta.opciones;
         botonOpcion.classList.add('opcion');
-        botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, index + 1));
+        botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, 1)); // Simplemente envía 1 como respuesta
         contenedorOpciones.appendChild(botonOpcion);
-    });
+    }
 }
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
@@ -43,10 +53,10 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 
 function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
     const niveles = idActual.split('-');
-    niveles[0] = opcionSeleccionada.toString();
-    if (niveles[1] === '0') niveles[1] = '1';
-    else if (niveles[2] === '0') niveles[2] = '1';
-    else if (niveles[3] === '0') niveles[3] = '1';
+    niveles[1] = '1'; // Cambiar el nivel 2 a 1
+    niveles[2] = '0'; // Reiniciar el nivel 3 a 0
+    niveles[3] = '0'; // Reiniciar el nivel 4 a 0
+    niveles[0] = opcionSeleccionada.toString(); // Actualizar el nivel 1 con la opción seleccionada
     return niveles.join('-');
 }
 
