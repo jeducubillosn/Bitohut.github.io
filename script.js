@@ -44,6 +44,13 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
+    } else if (siguientePreguntaID === '0-0-0-0') {
+        const preguntaInicial = await obtenerPregunta('0-0-0-0');
+        if (preguntaInicial) {
+            mostrarPregunta(preguntaInicial);
+        } else {
+            console.error('No se pudo cargar la pregunta inicial');
+        }
     } else {
         console.error('No se encontró la siguiente pregunta');
     }
@@ -51,8 +58,11 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 
 function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
     const niveles = idActual.split('-').map(Number);
-    
-    if (niveles[0] === 0) {
+
+    if (niveles[3] !== 0) {
+        // Cuando está en el nivel 5, volver al nivel 1
+        return '0-0-0-0';
+    } else if (niveles[0] === 0) {
         niveles[0] = opcionSeleccionada;
     } else if (niveles[1] === 0) {
         niveles[1] = opcionSeleccionada;
