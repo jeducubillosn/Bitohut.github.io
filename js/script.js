@@ -47,8 +47,6 @@ function mostrarPregunta(pregunta) {
 }
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
-    await registrarRespuesta(preguntaActual.id, opcionSeleccionada); // Registrar la respuesta
-
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
