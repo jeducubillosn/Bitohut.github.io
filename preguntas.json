@@ -526,9 +526,7 @@
     {
       "id": "3-2-1-2",
       "diagnostico": "Prefieres hongos con propiedades adaptogénicas que sean fáciles de incluir en la dieta diaria. El Chaga y el Oyster Mushroom son ideales, apoyando tu bienestar general y siendo versátiles en cocina. Una receta sugerida es risotto de Oyster Mushroom.",
-      "opcion_respuesta": [
-        "Volver al inicio"
-      ]
+      "opcion_respuesta": "Volver al inicio"
     },
     {
       "id": "3-2-1-3",
