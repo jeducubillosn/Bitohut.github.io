@@ -18,13 +18,21 @@ body {
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    text-align: center;
+}
+
+.title {
+    font-family: 'Gagalin', sans-serif;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 #titulo-pregunta {
+    font-family: 'Caveat', cursive;
     font-size: 1.5em;
     margin-bottom: 20px;
     color: #333;
-    font-family: 'Gagalin', sans-serif;
 }
 
 .opciones {
@@ -33,6 +41,7 @@ body {
 }
 
 .opcion {
+    font-family: 'Caveat', cursive;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -40,7 +49,7 @@ body {
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .opcion:hover {
