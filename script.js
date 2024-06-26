@@ -53,10 +53,10 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 
 function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
     const niveles = idActual.split('-');
-    niveles[1] = '1'; // Cambiar el nivel 2 a 1
-    niveles[2] = '0'; // Reiniciar el nivel 3 a 0
-    niveles[3] = '0'; // Reiniciar el nivel 4 a 0
-    niveles[0] = opcionSeleccionada.toString(); // Actualizar el nivel 1 con la opción seleccionada
+    niveles[0] = opcionSeleccionada.toString(); // La opción seleccionada determina el primer nivel
+    niveles[1] = '0'; // Resetear el segundo nivel
+    niveles[2] = '0'; // Resetear el tercer nivel
+    niveles[3] = '0'; // Resetear el cuarto nivel
     return niveles.join('-');
 }
 
@@ -82,3 +82,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('No se pudo cargar la pregunta inicial');
     }
 });
+
