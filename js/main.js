@@ -1,8 +1,5 @@
 // js/main.js
 
-// Cargar configuración de Firebase
-import './firebase-config.js';
-import { registrarRespuesta } from './analytics.js';
 
 const urlPreguntas = 'preguntas.json';
 
