@@ -11,7 +11,6 @@ async function cargarPreguntas() {
         return null;
     }
 }
-
 function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
@@ -45,6 +44,7 @@ function mostrarPregunta(pregunta) {
         contenedorOpciones.appendChild(botonOpcion);
     }
 }
+
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
