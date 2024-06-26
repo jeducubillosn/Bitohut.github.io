@@ -3,6 +3,7 @@ const urlPreguntas = 'preguntas.json'; // Asegúrate de tener el nombre correcto
 async function cargarPreguntas() {
     try {
         const response = await fetch(urlPreguntas);
+        if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         return data;
     } catch (error) {
@@ -51,23 +52,14 @@ function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
 
 async function obtenerPregunta(preguntaID) {
     const preguntas = await cargarPreguntas();
-    for (let nivel in preguntas) {
-        const pregunta = preguntas[nivel].find(p => p.id === preguntaID);
-        if (pregunta) return pregunta;
+    if (preguntas) {
+        for (let nivel in preguntas) {
+            const pregunta = preguntas[nivel].find(p => p.id === preguntaID);
+            if (pregunta) return pregunta;
+        }
     }
     console.error('Pregunta no encontrada:', preguntaID);
     return null;
-}
-
-function reiniciarCuestionario() {
-    const preguntaInicialID = '0-0-0-0';
-    obtenerPregunta(preguntaInicialID).then(preguntaInicial => {
-        if (preguntaInicial) {
-            mostrarPregunta(preguntaInicial);
-        } else {
-            console.error('No se pudo cargar la pregunta inicial');
-        }
-    });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
