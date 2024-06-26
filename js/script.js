@@ -1,3 +1,9 @@
+// js/main.js
+
+// Cargar configuración de Firebase
+import './firebase-config.js';
+import { registrarRespuesta } from './analytics.js';
+
 const urlPreguntas = 'preguntas.json';
 
 async function cargarPreguntas() {
@@ -11,6 +17,7 @@ async function cargarPreguntas() {
         return null;
     }
 }
+
 function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
@@ -45,8 +52,9 @@ function mostrarPregunta(pregunta) {
     }
 }
 
-
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
+    await registrarRespuesta(preguntaActual.id, opcionSeleccionada); // Registrar la respuesta
+
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
