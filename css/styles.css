@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'Gagalin';
+    src: url('../fonts/Gagalin-Regular.otf') format('opentype');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Quicksand:wght@500&display=swap');
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#titulo-pregunta {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Gagalin', sans-serif;
+}
+
+.opciones {
+    display: flex;
+    flex-direction: column;
+}
+
+.opcion {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.opcion:hover {
+    background-color: #45a049;
+}
+
+.nivel-1 {
+    background-color: #ffebee;
+}
+
+.nivel-2 {
+    background-color: #e3f2fd;
+}
+
+.nivel-3 {
+    background-color: #e8f5e9;
+}
+
+.nivel-4 {
+    background-color: #fff3e0;
+}
+
+.nivel-5 {
+    background-color: #f3e5f5;
+}
