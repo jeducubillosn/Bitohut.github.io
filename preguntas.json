@@ -524,6 +524,11 @@
       "opciones": ["Volver al inicio"]
     },
     {
+      "id": "3-2-1-1",
+      "pregunta": "Quieres hongos que mejoren tu rendimiento físico y sean deliciosos en diversas preparaciones. El Lion's Mane y el Maitake son ideales, mejorando tu rendimiento y siendo sabrosos en cocina. Una receta sugerida es ensalada de Lion's Mane.",
+      "opciones": ["Volver al inicio"]
+    },   
+    {
       "id": "3-2-1-2",
       "pregunta": "Prefieres hongos con propiedades adaptogénicas que sean fáciles de incluir en la dieta diaria. El Chaga y el Oyster Mushroom son ideales, apoyando tu bienestar general y siendo versátiles en cocina. Una receta sugerida es risotto de Oyster Mushroom.",
       "opciones": ["Volver al inicio"]
