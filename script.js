@@ -1,5 +1,3 @@
-// script.js
-
 const urlPreguntas = 'preguntas.json'; // Asegúrate de tener el nombre correcto y la ruta adecuada aquí
 
 async function cargarPreguntas() {
@@ -32,42 +30,44 @@ function mostrarPregunta(pregunta) {
 }
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
-    if (preguntaActual.hasOwnProperty('nivel5')) {
-        // Si estamos en una pregunta del nivel 5
-        if (opcionSeleccionada === 1) {
-            // Opción única en el nivel 5, regresar a la pregunta inicial del nivel 1
-            const preguntaInicialID = '0-0-0-0';
-            const preguntaInicial = await obtenerPregunta(preguntaInicialID);
+    const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
+    const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
-            if (preguntaInicial) {
-                mostrarPregunta(preguntaInicial);
-            } else {
-                console.error('No se pudo cargar la pregunta inicial');
-            }
-        } else {
-            console.error('Opción inválida en pregunta del nivel 5');
-        }
+    if (siguientePregunta) {
+        mostrarPregunta(siguientePregunta);
     } else {
-        // Obtener ID de la siguiente pregunta según la respuesta seleccionada
-        const siguientePreguntaID = `${opcionSeleccionada}-${preguntaActual.b}-0-0`;
-        const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
-
-        if (siguientePregunta) {
-            mostrarPregunta(siguientePregunta);
-        } else {
-            console.error('No se encontró la siguiente pregunta');
-        }
+        console.error('No se encontró la siguiente pregunta');
     }
+}
+
+function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
+    const niveles = idActual.split('-');
+    niveles[0] = opcionSeleccionada.toString();
+    if (niveles[1] === '0') niveles[1] = '1';
+    else if (niveles[2] === '0') niveles[2] = '1';
+    else if (niveles[3] === '0') niveles[3] = '1';
+    return niveles.join('-');
 }
 
 async function obtenerPregunta(preguntaID) {
     const preguntas = await cargarPreguntas();
-    if (preguntas && preguntas.hasOwnProperty(preguntaID)) {
-        return preguntas[preguntaID];
-    } else {
-        console.error('Pregunta no encontrada:', preguntaID);
-        return null;
+    for (let nivel in preguntas) {
+        const pregunta = preguntas[nivel].find(p => p.id === preguntaID);
+        if (pregunta) return pregunta;
     }
+    console.error('Pregunta no encontrada:', preguntaID);
+    return null;
+}
+
+function reiniciarCuestionario() {
+    const preguntaInicialID = '0-0-0-0';
+    obtenerPregunta(preguntaInicialID).then(preguntaInicial => {
+        if (preguntaInicial) {
+            mostrarPregunta(preguntaInicial);
+        } else {
+            console.error('No se pudo cargar la pregunta inicial');
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
