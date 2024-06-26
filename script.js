@@ -21,7 +21,6 @@ function mostrarPregunta(pregunta) {
     // Limpiar opciones anteriores si las hubiera
     contenedorOpciones.innerHTML = '';
 
-    // Verificar si opciones es un arreglo
     if (Array.isArray(pregunta.opciones)) {
         pregunta.opciones.forEach((opcion, index) => {
             const botonOpcion = document.createElement('button');
@@ -31,11 +30,10 @@ function mostrarPregunta(pregunta) {
             contenedorOpciones.appendChild(botonOpcion);
         });
     } else {
-        // Si opciones no es un arreglo (puede ser un string en el nivel 5)
         const botonOpcion = document.createElement('button');
         botonOpcion.textContent = pregunta.opciones;
         botonOpcion.classList.add('opcion');
-        botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, 1)); // Simplemente envía 1 como respuesta
+        botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, 1));
         contenedorOpciones.appendChild(botonOpcion);
     }
 }
@@ -52,11 +50,16 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 }
 
 function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
-    const niveles = idActual.split('-');
-    niveles[0] = opcionSeleccionada.toString(); // La opción seleccionada determina el primer nivel
-    niveles[1] = '0'; // Resetear el segundo nivel
-    niveles[2] = '0'; // Resetear el tercer nivel
-    niveles[3] = '0'; // Resetear el cuarto nivel
+    const niveles = idActual.split('-').map(Number);
+    if (niveles[0] === 0) {
+        niveles[0] = opcionSeleccionada;
+    } else if (niveles[1] === 0) {
+        niveles[1] = opcionSeleccionada;
+    } else if (niveles[2] === 0) {
+        niveles[2] = opcionSeleccionada;
+    } else {
+        niveles[3] = opcionSeleccionada;
+    }
     return niveles.join('-');
 }
 
@@ -82,4 +85,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('No se pudo cargar la pregunta inicial');
     }
 });
-
