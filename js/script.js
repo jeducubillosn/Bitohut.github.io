@@ -43,9 +43,6 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
-    // Enviar los datos a Google Sheets directamente
-    await enviarDatos(preguntaActual.id, preguntaActual.pregunta, preguntaActual.opciones[opcionSeleccionada - 1]);
-
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
         const progreso = calcularProgreso(siguientePreguntaID);
@@ -60,24 +57,6 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
         }
     } else {
         console.error('No se encontró la siguiente pregunta');
-    }
-}
-
-async function enviarDatos(id, pregunta, opcionSeleccionada) {
-    try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwPH6QRJVymxrR_bnNEPuK-2vscg2_MaSuDxtvPeMKRLTQznfaXIKpKPTIixBGuLop3/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id, pregunta, opcionSeleccionada })
-        });
-
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        console.log('Datos enviados correctamente:', data);
-    } catch (error) {
-        console.error('Error al enviar datos:', error);
     }
 }
 
