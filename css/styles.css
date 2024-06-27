@@ -9,6 +9,7 @@ body {
     font-family: 'Quicksand', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f9;
 }
 
 .container {
@@ -16,28 +17,44 @@ body {
     margin: 50px auto;
     padding: 20px;
     background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     text-align: center;
 }
 
 .title {
     font-family: 'Gagalin', sans-serif;
-    font-size: 40px;
+    font-size: 42px;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
     margin-bottom: 20px;
-    color: #333;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0;
+    height: 10px;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
 }
 
 #titulo-pregunta {
     font-family: 'Caveat', cursive;
-    font-size: 1.5em;
+    font-size: 1.8em;
     margin-bottom: 20px;
-    color: #333;
+    color: #34495e;
 }
 
 .opciones {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .opcion {
@@ -45,12 +62,12 @@ body {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 15px;
     margin: 5px 0;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s;
+    font-size: 1.3em;
+    transition: background-color 0.3s ease;
 }
 
 .opcion:hover {
@@ -76,55 +93,3 @@ body {
 .nivel-5 {
     background-color: #f3e5f5;
 }
-
-.fade-in {
-    animation: fadeIn 0.5s;
-}
-
-.fade-out {
-    animation: fadeOut 0.5s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-.progress-container {
-    width: 100%;
-    background-color: #f3f3f3;
-    border-radius: 25px;
-    margin: 20px 0;
-}
-
-.progress-bar {
-    width: 100%;
-    background-color: #f3f3f3;
-    border-radius: 25px;
-}
-
-.progress {
-    height: 20px;
-    background-color: #4CAF50;
-    width: 0;
-    border-radius: 25px;
-}
-
-.reiniciar-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
-}
-
-.rein
