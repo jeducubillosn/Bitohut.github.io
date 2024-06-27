@@ -1,5 +1,5 @@
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-const targetUrl = 'https://script.google.com/macros/s/AKfycbzLnMdef9B39_7F2zzNRV-mEIOwMXWc-2aAeaMTXv3q_OHsyFhUp3x6Gj-NKXl-3-mO/exec';
+const targetUrl = 'https://script.google.com/macros/s/AKfycbzLnMdef9B39_7F2zZNRV-mElOwMXWc-2aAeaMTXv3q_OHsyFhUp3x6Gj-NKXI-3-mO/exec';
 
 async function enviarDatosConProxy(id, pregunta, opcionSeleccionada) {
     const url = proxyUrl + targetUrl;
