@@ -44,6 +44,18 @@ function mostrarPregunta(pregunta) {
         botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, 1));
         contenedorOpciones.appendChild(botonOpcion);
     }
+
+    // Transiciones
+    tituloPregunta.classList.add('fade-in');
+    contenedorOpciones.classList.add('fade-in');
+    setTimeout(() => {
+        tituloPregunta.classList.remove('fade-in');
+        contenedorOpciones.classList.remove('fade-in');
+    }, 500);
+
+    // Actualizar barra de progreso
+    const progreso = calcularProgreso(niveles);
+    updateProgress(progreso);
 }
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
@@ -94,13 +106,13 @@ async function obtenerPregunta(preguntaID) {
     return null;
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const preguntaInicialID = '0-0-0-0';
-    const preguntaInicial = await obtenerPregunta(preguntaInicialID);
+function calcularProgreso(niveles) {
+    return (niveles / 4) * 100;
+}
 
-    if (preguntaInicial) {
-        mostrarPregunta(preguntaInicial);
-    } else {
-        console.error('No se pudo cargar la pregunta inicial');
-    }
-});
+function updateProgress(progreso) {
+    const progressBar = document.querySelector('.progress');
+    progressBar.style.width = `${progreso}%`;
+}
+
+document.getElementById('reiniciar-btn').addEventListener('click',
