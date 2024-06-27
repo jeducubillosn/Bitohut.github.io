@@ -132,3 +132,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('No se pudo cargar la pregunta inicial');
     }
 });
+
