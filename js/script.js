@@ -1,5 +1,4 @@
 const urlPreguntas = 'preguntas.json';
-const urlWebApp = 'https://script.google.com/macros/s/AKfycbwe25mjvSX-X-HfKlxypuBHUxBrXDEwpj2HnGKDcE9HBI_Vd67GT17H8huS3yDcOs0x/exec'; // URL corregida de tu Web App
 
 async function cargarPreguntas() {
     try {
@@ -45,7 +44,7 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
     // Enviar los datos a Google Sheets usando el proxy
-    await enviarDatosConProxy(preguntaActual.id, preguntaActual.pregunta, opcionSeleccionada);
+    await enviarDatosConProxy(preguntaActual.id, preguntaActual.pregunta, preguntaActual.opciones[opcionSeleccionada - 1]);
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
