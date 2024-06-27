@@ -1,15 +1,25 @@
 const urlPreguntas = 'preguntas.json';
-const urlWebApp = 'https://script.google.com/macros/s/AKfycbz8_3Ed8FsVONGA0OFvSqixIttyuF2ZZwbDygBwRp3HeCcPmhjiDN_4uCz-7RMxiPqC/exec';  // Reemplaza con la URL de tu Web App
+const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbxVWlLQnEqUWAmdijVG0KBmHUREjHaFUtCVikIpZlfUCmDVNWht-hHR_eeDewBERpZs/exec';  // Reemplaza con la URL de tu Web App
 
-async function cargarPreguntas() {
+async function registrarRespuesta(idPregunta, opcionSeleccionada) {
+    const respuesta = { idPregunta, opcionSeleccionada };
+
     try {
-        const response = await fetch(urlPreguntas);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        return data;
+        const response = await fetch(urlGoogleScript, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(respuesta)
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al registrar la respuesta');
+        }
+
+        console.log('Respuesta registrada correctamente');
     } catch (error) {
-        console.error('Error al cargar las preguntas:', error);
-        return null;
+        console.error('Error al registrar la respuesta:', error);
     }
 }
 
