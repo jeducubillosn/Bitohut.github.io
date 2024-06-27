@@ -1,7 +1,5 @@
 const urlPreguntas = 'preguntas.json';
 const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbwQ_uH6_OS1-qGRvbizWAzMBugA0T4vejZ6UncAwEb5vPUls7rbOabFpknOUzuUUZVU/exec';  // Reemplaza con la URL de tu Web App
-const urlPreguntas = 'preguntas.json';
-const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbwQ_uH6_OS1-qGRvbizWAzMBugA0T4vejZ6UncAwEb5vPUls7rbOUZVU/exec';  // Reemplaza con la URL de tu Web App
 
 async function cargarPreguntas() {
     try {
