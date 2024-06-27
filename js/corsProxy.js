@@ -1,9 +1,9 @@
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-const targetUrl = 'https://script.google.com/macros/s/AKfycbwe25mjvSX-X-HfKlxypuBHUxBrXDEwpj2HnGKDcE9HBI_Vd67GT17H8huS3yDcOs0x/exec';
+const proxyUrl = 'https://api.allorigins.win/get?url=';
+const targetUrl = 'https://script.google.com/macros/s/AKfycbxNAsKZ0soa-TivRRbtz8WS0-g47ERlPzEd3JVwAW0mFz_2oEwpjxRButnJpv9OUE9j/exec';
 
 async function enviarDatosConProxy(id, pregunta, opcionSeleccionada) {
-    const url = proxyUrl + targetUrl;
-    
+    const url = proxyUrl + encodeURIComponent(targetUrl);
+
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -12,7 +12,7 @@ async function enviarDatosConProxy(id, pregunta, opcionSeleccionada) {
             },
             body: JSON.stringify({ id, pregunta, opcionSeleccionada })
         });
-        
+
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         console.log('Datos enviados correctamente con proxy:', data);
