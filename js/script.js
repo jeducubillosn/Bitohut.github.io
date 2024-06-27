@@ -1,5 +1,5 @@
 const urlPreguntas = 'preguntas.json';
-const urlWebApp = 'https://script.google.com/macros/s/AKfycbzLnMdef9B39_7F2zZNRV-mElOwMXWc-2aAeaMTXv3q_OHsyFhUp3x6Gj-NKXI-3-mO/exec'; // URL corregida de tu Web App
+const urlWebApp = 'https://script.google.com/macros/s/AKfycbwe25mjvSX-X-HfKlxypuBHUxBrXDEwpj2HnGKDcE9HBI_Vd67GT17H8huS3yDcOs0x/exec'; // URL corregida de tu Web App
 
 async function cargarPreguntas() {
     try {
