@@ -65,7 +65,7 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 
 async function enviarDatos(id, pregunta, opcionSeleccionada) {
     try {
-        const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwPH6QRJVymxrR_bnNEPuK-2vscg2_MaSuDxtvPeMKRLTQznfaXIKpKPTIixBGuLop3/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
