@@ -16,17 +16,10 @@ function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
 
-    // Determinar el nivel de la pregunta
     const niveles = pregunta.id.split('-').filter(n => n !== '0').length;
-    const nivelClase = `nivel-${niveles}`;
-
-    // Eliminar clases previas y agregar la clase del nivel actual al body
-    document.body.className = '';
-    document.body.classList.add(nivelClase);
+    setBodyClassByLevel(niveles);
 
     tituloPregunta.textContent = pregunta.pregunta;
-
-    // Limpiar opciones anteriores si las hubiera
     contenedorOpciones.innerHTML = '';
 
     if (Array.isArray(pregunta.opciones)) {
@@ -44,18 +37,6 @@ function mostrarPregunta(pregunta) {
         botonOpcion.addEventListener('click', () => manejarRespuesta(pregunta, 1));
         contenedorOpciones.appendChild(botonOpcion);
     }
-
-    // Transiciones
-    tituloPregunta.classList.add('fade-in');
-    contenedorOpciones.classList.add('fade-in');
-    setTimeout(() => {
-        tituloPregunta.classList.remove('fade-in');
-        contenedorOpciones.classList.remove('fade-in');
-    }, 500);
-
-    // Actualizar barra de progreso
-    const progreso = calcularProgreso(niveles);
-    updateProgress(progreso);
 }
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
@@ -64,10 +45,13 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
+        const progreso = calcularProgreso(siguientePreguntaID);
+        updateProgress(progreso);
     } else if (siguientePreguntaID === '0-0-0-0') {
         const preguntaInicial = await obtenerPregunta('0-0-0-0');
         if (preguntaInicial) {
             mostrarPregunta(preguntaInicial);
+            updateProgress(0);
         } else {
             console.error('No se pudo cargar la pregunta inicial');
         }
@@ -80,7 +64,6 @@ function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
     const niveles = idActual.split('-').map(Number);
 
     if (niveles[3] !== 0) {
-        // Cuando está en el nivel 5, volver al nivel 1
         return '0-0-0-0';
     } else if (niveles[0] === 0) {
         niveles[0] = opcionSeleccionada;
@@ -106,23 +89,10 @@ async function obtenerPregunta(preguntaID) {
     return null;
 }
 
-function calcularProgreso(niveles) {
+function calcularProgreso(preguntaID) {
+    const niveles = preguntaID.split('-').filter(n => n !== '0').length;
     return (niveles / 4) * 100;
 }
-
-function updateProgress(progreso) {
-    const progressBar = document.querySelector('.progress');
-    progressBar.style.width = `${progreso}%`;
-}
-
-document.getElementById('reiniciar-btn').addEventListener('click', async () => {
-    const preguntaInicial = await obtenerPregunta('0-0-0-0');
-    if (preguntaInicial) {
-        mostrarPregunta(preguntaInicial);
-    } else {
-        console.error('No se pudo cargar la pregunta inicial');
-    }
-});
 
 document.addEventListener('DOMContentLoaded', async () => {
     const preguntaInicialID = '0-0-0-0';
