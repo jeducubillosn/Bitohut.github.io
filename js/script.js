@@ -1,5 +1,5 @@
 const urlPreguntas = 'preguntas.json';
-const urlWebApp = 'https://script.google.com/macros/s/AKfycbwQ_uH6_OS1-qGRvbizWAzMBugA0T4vejZ6UncAwEb5vPUls7rbOabFpknOUzuUUZVU/exec';  // Reemplaza con la URL de tu Web App
+const urlWebApp = 'https://script.google.com/macros/s/AKfycbwe25mjvSX-X-HfKlxypuBHUxBrXDEwpj2HnGKDcE9HBI_Vd67GT17H8huS3yDcOs0x/exec';  // Reemplaza con la URL de tu Web App
 
 async function cargarPreguntas() {
     try {
@@ -45,7 +45,7 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
     // Enviar los datos a Google Sheets
-    enviarDatosAGoogleSheets(preguntaActual, opcionSeleccionada);
+    await enviarDatosAGoogleSheets(preguntaActual, opcionSeleccionada);
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
@@ -132,4 +132,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('No se pudo cargar la pregunta inicial');
     }
 });
-
