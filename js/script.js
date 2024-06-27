@@ -1,5 +1,21 @@
 const urlPreguntas = 'preguntas.json';
 const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbwQ_uH6_OS1-qGRvbizWAzMBugA0T4vejZ6UncAwEb5vPUls7rbOabFpknOUzuUUZVU/exec';  // Reemplaza con la URL de tu Web App
+const urlPreguntas = 'preguntas.json';
+const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbwQ_uH6_OS1-qGRvbizWAzMBugA0T4vejZ6UncAwEb5vPUls7rbOUZVU/exec';  // Reemplaza con la URL de tu Web App
+
+async function cargarPreguntas() {
+    try {
+        const response = await fetch(urlPreguntas);
+        if (!response.ok) {
+            throw new Error('Error al cargar las preguntas');
+        }
+        const preguntas = await response.json();
+        return preguntas;
+    } catch (error) {
+        console.error('Error al cargar las preguntas:', error);
+        return null;
+    }
+}
 
 async function registrarRespuesta(idPregunta, opcionSeleccionada) {
     const respuesta = { idPregunta, opcionSeleccionada };
@@ -55,7 +71,7 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
     // Enviar los datos a Google Sheets
-    enviarDatosAGoogleSheets(preguntaActual, opcionSeleccionada);
+    await registrarRespuesta(preguntaActual.id, opcionSeleccionada);
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
@@ -101,30 +117,6 @@ async function obtenerPregunta(preguntaID) {
     }
     console.error('Pregunta no encontrada:', preguntaID);
     return null;
-}
-
-async function enviarDatosAGoogleSheets(pregunta, opcionSeleccionada) {
-    const data = {
-        id: pregunta.id,
-        pregunta: pregunta.pregunta,
-        opcionSeleccionada: opcionSeleccionada
-    };
-
-    try {
-        const response = await fetch(urlWebApp, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        if (!response.ok) throw new Error('Network response was not ok');
-        const responseData = await response.json();
-        console.log('Datos enviados correctamente:', responseData);
-    } catch (error) {
-        console.error('Error al enviar datos a Google Sheets:', error);
-    }
 }
 
 function calcularProgreso(preguntaID) {
