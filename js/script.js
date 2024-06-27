@@ -1,5 +1,5 @@
 const urlPreguntas = 'preguntas.json';
-const urlWebApp = 'https://script.google.com/macros/s/AKfycbwe25mjvSX-X-HfKlxypuBHUxBrXDEwpj2HnGKDcE9HBI_Vd67GT17H8huS3yDcOs0x/exec';  // Reemplaza con la URL de tu Web App
+const urlWebApp = 'https://script.google.com/macros/s/AKfycbzLnMdef9B39_7F2zZNRV-mElOwMXWc-2aAeaMTXv3q_OHsyFhUp3x6Gj-NKXI-3-mO/exec'; // URL corregida de tu Web App
 
 async function cargarPreguntas() {
     try {
@@ -44,8 +44,8 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
-    // Enviar los datos a Google Sheets
-    await enviarDatosAGoogleSheets(preguntaActual, opcionSeleccionada);
+    // Enviar los datos a Google Sheets usando el proxy
+    await enviarDatosConProxy(preguntaActual.id, preguntaActual.pregunta, opcionSeleccionada);
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
@@ -91,30 +91,6 @@ async function obtenerPregunta(preguntaID) {
     }
     console.error('Pregunta no encontrada:', preguntaID);
     return null;
-}
-
-async function enviarDatosAGoogleSheets(pregunta, opcionSeleccionada) {
-    const data = {
-        id: pregunta.id,
-        pregunta: pregunta.pregunta,
-        opcionSeleccionada: opcionSeleccionada
-    };
-
-    try {
-        const response = await fetch(urlWebApp, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        if (!response.ok) throw new Error('Network response was not ok');
-        const responseData = await response.json();
-        console.log('Datos enviados correctamente:', responseData);
-    } catch (error) {
-        console.error('Error al enviar datos a Google Sheets:', error);
-    }
 }
 
 function calcularProgreso(preguntaID) {
