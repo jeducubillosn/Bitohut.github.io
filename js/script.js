@@ -1,5 +1,5 @@
 const urlPreguntas = 'preguntas.json';
-const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbxVWlLQnEqUWAmdijVG0KBmHUREjHaFUtCVikIpZlfUCmDVNWht-hHR_eeDewBERpZs/exec';  // Reemplaza con la URL de tu Web App
+const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbwQ_uH6_OS1-qGRvbizWAzMBugA0T4vejZ6UncAwEb5vPUls7rbOabFpknOUzuUUZVU/exec';  // Reemplaza con la URL de tu Web App
 
 async function registrarRespuesta(idPregunta, opcionSeleccionada) {
     const respuesta = { idPregunta, opcionSeleccionada };
