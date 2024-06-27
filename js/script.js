@@ -43,8 +43,8 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
-    // Enviar los datos a Google Sheets usando el proxy
-    await enviarDatosConProxy(preguntaActual.id, preguntaActual.pregunta, preguntaActual.opciones[opcionSeleccionada - 1]);
+    // Enviar los datos a Google Sheets directamente
+    await enviarDatos(preguntaActual.id, preguntaActual.pregunta, preguntaActual.opciones[opcionSeleccionada - 1]);
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
@@ -60,6 +60,24 @@ async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
         }
     } else {
         console.error('No se encontró la siguiente pregunta');
+    }
+}
+
+async function enviarDatos(id, pregunta, opcionSeleccionada) {
+    try {
+        const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id, pregunta, opcionSeleccionada })
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        console.log('Datos enviados correctamente:', data);
+    } catch (error) {
+        console.error('Error al enviar datos:', error);
     }
 }
 
