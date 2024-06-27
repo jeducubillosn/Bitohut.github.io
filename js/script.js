@@ -115,4 +115,22 @@ function updateProgress(progreso) {
     progressBar.style.width = `${progreso}%`;
 }
 
-document.getElementById('reiniciar-btn').addEventListener('click',
+document.getElementById('reiniciar-btn').addEventListener('click', async () => {
+    const preguntaInicial = await obtenerPregunta('0-0-0-0');
+    if (preguntaInicial) {
+        mostrarPregunta(preguntaInicial);
+    } else {
+        console.error('No se pudo cargar la pregunta inicial');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const preguntaInicialID = '0-0-0-0';
+    const preguntaInicial = await obtenerPregunta(preguntaInicialID);
+
+    if (preguntaInicial) {
+        mostrarPregunta(preguntaInicial);
+    } else {
+        console.error('No se pudo cargar la pregunta inicial');
+    }
+});
