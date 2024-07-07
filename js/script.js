@@ -1,3 +1,4 @@
+
 const urlPreguntas = 'preguntas.json';
 
 async function cargarPreguntas() {
@@ -11,14 +12,13 @@ async function cargarPreguntas() {
         return null;
     }
 }
-
 function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
 
     // Determinar el nivel de la pregunta
     const niveles = pregunta.id.split('-').filter(n => n !== '0').length;
-    const nivelClase = `nivel-${niveles}`;
+    const nivelClase = nivel-${niveles};
 
     // Eliminar clases previas y agregar la clase del nivel actual al body
     document.body.className = '';
@@ -45,6 +45,7 @@ function mostrarPregunta(pregunta) {
         contenedorOpciones.appendChild(botonOpcion);
     }
 }
+
 
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
