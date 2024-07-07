@@ -1,4 +1,3 @@
-
 const urlPreguntas = 'preguntas.json';
 
 async function cargarPreguntas() {
@@ -12,21 +11,15 @@ async function cargarPreguntas() {
         return null;
     }
 }
+
 function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
 
-    // Determinar el nivel de la pregunta
     const niveles = pregunta.id.split('-').filter(n => n !== '0').length;
-    const nivelClase = nivel-${niveles};
-
-    // Eliminar clases previas y agregar la clase del nivel actual al body
-    document.body.className = '';
-    document.body.classList.add(nivelClase);
+    setBodyClassByLevel(niveles);
 
     tituloPregunta.textContent = pregunta.pregunta;
-
-    // Limpiar opciones anteriores si las hubiera
     contenedorOpciones.innerHTML = '';
 
     if (Array.isArray(pregunta.opciones)) {
@@ -46,17 +39,19 @@ function mostrarPregunta(pregunta) {
     }
 }
 
-
 async function manejarRespuesta(preguntaActual, opcionSeleccionada) {
     const siguientePreguntaID = obtenerSiguientePreguntaID(preguntaActual.id, opcionSeleccionada);
     const siguientePregunta = await obtenerPregunta(siguientePreguntaID);
 
     if (siguientePregunta) {
         mostrarPregunta(siguientePregunta);
+        const progreso = calcularProgreso(siguientePreguntaID);
+        updateProgress(progreso);
     } else if (siguientePreguntaID === '0-0-0-0') {
         const preguntaInicial = await obtenerPregunta('0-0-0-0');
         if (preguntaInicial) {
             mostrarPregunta(preguntaInicial);
+            updateProgress(0);
         } else {
             console.error('No se pudo cargar la pregunta inicial');
         }
@@ -69,7 +64,6 @@ function obtenerSiguientePreguntaID(idActual, opcionSeleccionada) {
     const niveles = idActual.split('-').map(Number);
 
     if (niveles[3] !== 0) {
-        // Cuando está en el nivel 5, volver al nivel 1
         return '0-0-0-0';
     } else if (niveles[0] === 0) {
         niveles[0] = opcionSeleccionada;
@@ -93,6 +87,11 @@ async function obtenerPregunta(preguntaID) {
     }
     console.error('Pregunta no encontrada:', preguntaID);
     return null;
+}
+
+function calcularProgreso(preguntaID) {
+    const niveles = preguntaID.split('-').filter(n => n !== '0').length;
+    return (niveles / 4) * 100;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
