@@ -12,11 +12,16 @@ async function cargarPreguntas() {
     }
 }
 
+function setBodyClassByLevel(level) {
+    const body = document.body;
+    body.className = ''; // Elimina todas las clases anteriores
+    body.classList.add(`nivel-${level}`);
+}
+
 function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
 
-    // Validar que la pregunta y sus opciones existan
     if (!pregunta || !pregunta.opciones) {
         console.error('Pregunta u opciones no encontradas:', pregunta);
         return;
