@@ -16,6 +16,12 @@ function mostrarPregunta(pregunta) {
     const tituloPregunta = document.getElementById('titulo-pregunta');
     const contenedorOpciones = document.getElementById('contenedor-opciones');
 
+    // Validar que la pregunta y sus opciones existan
+    if (!pregunta || !pregunta.opciones) {
+        console.error('Pregunta u opciones no encontradas:', pregunta);
+        return;
+    }
+
     const niveles = pregunta.id.split('-').filter(n => n !== '0').length;
     setBodyClassByLevel(niveles);
 
